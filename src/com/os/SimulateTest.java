@@ -11,6 +11,7 @@ import com.thread.*;
 
 public class SimulateTest {
     public static void main(String[] args) throws IOException {
+        //建立大小为5的线程池
         ScheduledExecutorService pool = (ScheduledExecutorService) Executors.newScheduledThreadPool(5);
         pool.scheduleWithFixedDelay(()->{
             try {
@@ -24,10 +25,12 @@ public class SimulateTest {
         //1、计时器线程启动
         Clock clock = new Clock();
         clock.startTimer();
-        //2、读job
+        //2、读job,判断是否有进程
         PCBPool pcbPool = new PCBPool();
         pcbPool.readPCB();
         pcbPool.displayProcess();
+        //执行进程
+
         //3、队列进程启动
         InputBlockQueue ibq = new InputBlockQueue();
         OutputBlockQueue obq = new OutputBlockQueue();

@@ -14,7 +14,7 @@ enum ProcessStatus {
 阻塞、唤醒等原语
 */
 
-public class Process {
+public class PCB {
     int ProID;//值分别为 1,2,3,4,5,6，。。
     int Priority;//优先级
     int InTimes;//进程创建时间
@@ -63,4 +63,13 @@ public class Process {
         StartTimes = startTimes;
     }
 
+    public void createProcess(){
+
+    }//进程创建,不考虑作业调度，假设有足够内存。当有作业请求后自动创建
+
+    public void destroyProcess(){}//进程撤销,执行完成的进程调用撤销函数；
+
+    public void blockProcess(){}//进程阻塞,进程切换、CPU 模式切换时调用
+
+    public void wakeProcess(){}//进程唤醒
 }

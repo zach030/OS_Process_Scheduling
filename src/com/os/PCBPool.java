@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PCBPool implements Runnable {
-    ArrayList<Process> pcList = new ArrayList<>();
+    ArrayList<PCB> pcList = new ArrayList<>();
     //从文件in.txt读入pcb，放入pcb池子中
     ReadyQueue readyQueue;
     InputBlockQueue inputBlockQueue;
@@ -17,7 +17,8 @@ public class PCBPool implements Runnable {
     PVBlockQueue pvBlockQueue;
 
     public void displayProcess() {
-        for (Process p : pcList) {
+        for (PCB p : pcList) {
+            System.out.println("Process in pool now are:");
             System.out.println("id=" + p.ProID + ",priority=" + p.Priority + ",intime=" + p.InTimes + ",num is=" + p.InstrucNum);
         }
     }
@@ -29,7 +30,7 @@ public class PCBPool implements Runnable {
             String line = null;
             while ((line = br.readLine()) != null) {
                 String[] tmp = line.split(",");
-                Process p = new Process();
+                PCB p = new PCB();
                 p.setProID(Integer.parseInt(tmp[0]));
                 p.setPriority(Integer.parseInt(tmp[1]));
                 p.setInTimes(Integer.parseInt(tmp[2]));
@@ -48,7 +49,7 @@ public class PCBPool implements Runnable {
         Calendar calendar = Calendar.getInstance();
         int now = calendar.get(Calendar.SECOND);
         System.out.println("now second is" + now);
-        for (Process p : pcList) {
+        for (PCB p : pcList) {
             System.out.println("process in time:" + p.InTimes);
             if (p.InTimes == now) {
 
