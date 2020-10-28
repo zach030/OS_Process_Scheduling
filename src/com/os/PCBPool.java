@@ -1,17 +1,12 @@
 package com.os;
 
 
-import com.configs.PCBStatus;
+import com.status.PCBStatus;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
+import java.util.*;
 
 //PCB管理池
-public class PCBPool{
+public class PCBPool {
     public static PCBPool pcbPool = new PCBPool();
     //所有的PCB
     public ArrayList<PCB> allPcbList = new ArrayList<>();
@@ -26,6 +21,25 @@ public class PCBPool{
     //PV阻塞队列
     ArrayList<PCB> pvBlockQueue = new ArrayList<>();
 
+    //统计可用PCB数
+    public int getUsablePCBNum() {
+        int count = 0;
+        for (Map.Entry<PCB, PCBStatus> entry : pcbStatusHashMap.entrySet()) {
+            if (entry.getValue() == PCBStatus.USABLE) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //将某PCB从池中删除-->标记不可用
+    public void deletePCBFromPool(PCB pcb) {
+        pcbStatusHashMap.put(pcb, PCBStatus.UNUSABLE);
+    }
+
+    public void addPCB2Pool(PCB pcb){
+        allPcbList.add(pcb);
+    }
     public void AddProcess2ReadyQueue(PCB pcb) {
         readyQueue.add(pcb);
     }
@@ -51,10 +65,6 @@ public class PCBPool{
             System.out.println("Process in pool now are:");
             //System.out.println("id=" + p.ProID + ",priority=" + p.Priority + ",intime=" + p.InTimes + ",num is=" + p.InstructionsNum);
         }
-    }
-
-    public void readAllPCB() {
-
     }
 
 }

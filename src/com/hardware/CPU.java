@@ -1,25 +1,24 @@
 package com.hardware;
 
-import com.configs.*;
 import com.os.PCB;
+import com.os.PCBInstructions;
 
 public class CPU {
     public static CPU cpu = new CPU();
+    public Clock clock;
     private int PC;//程序计数器，当前正在运行的进程序号
-    private InstructionStatus IR;//指令寄存器,存放指令状态
+    private PCBInstructions IR;//指令寄存器,存放指令状态
     private int PSW;//状态寄存器，当前正在运行的指令
     private PCB runningPCB;//正在运行的进程控制块
-
     //CPU状态
     private enum CpuState {
         USERMODE, COREMODE
     }
-
     CpuState cpuState;                    //CPU的状态
 
 
     public CPU() {
-
+        clock = new Clock();
     }
 
     public CpuState getCpuState() {
@@ -46,11 +45,11 @@ public class CPU {
         this.PSW = PSW;
     }
 
-    public InstructionStatus getIR() {
+    public PCBInstructions getIR() {
         return IR;
     }
 
-    public void setIR(InstructionStatus IR) {
+    public void setIR(PCBInstructions IR) {
         this.IR = IR;
     }
 
@@ -86,17 +85,6 @@ public class CPU {
             default:
                 break;
         }
-    }
-
-    public void Protect(PCB p) {
-        //TODO 由pcb设置当前的psw，currenttime
-    }
-
-    ;//CPU寄存器现场保护
-
-    public void Recovery(PCB p) {
-        //TODO 将当前pcb赋值为p
-        //将cpu的类变量都用pcb赋值，恢复
     }
 
     public void SetRunningPCB(PCB pcb) {

@@ -1,6 +1,6 @@
 package com.os;
 
-import com.configs.InstructionStatus;
+import com.status.InstructionStatus;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,6 +15,8 @@ import java.util.HashMap;
  * @create: 2020-10-27-21:36
  **/
 public class FileOperator {
+    public static FileOperator fileOperator = new FileOperator();
+
     //从文件中读取的临时pcb
     public static final String abstractFileName = "D:\\UniCourse\\OS\\周全-19318123-必修实验-申请成绩\\input\\";
     public static final String jobFileName = abstractFileName + "19318123-jobs-input.txt";

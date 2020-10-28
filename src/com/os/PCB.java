@@ -1,7 +1,6 @@
 package com.os;
 
-import com.configs.*;
-import com.hardware.CPU;
+import com.status.*;
 
 import java.util.*;
 

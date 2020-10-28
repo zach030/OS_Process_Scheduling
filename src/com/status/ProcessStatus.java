@@ -1,4 +1,4 @@
-package com.configs;
+package com.status;
 
 /**
  * @program: Process_Sheduling

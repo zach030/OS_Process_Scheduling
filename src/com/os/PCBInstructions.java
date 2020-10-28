@@ -1,6 +1,6 @@
 package com.os;
 
-import com.configs.InstructionStatus;
+import com.status.InstructionStatus;
 
 /**
  * @program: Process_Sheduling
@@ -11,15 +11,6 @@ import com.configs.InstructionStatus;
 public class PCBInstructions {
     private int instructionID;            //指令编号
     private InstructionStatus instructionState;        //指令类型
-    private int instructionTime;        //指令运行时间
-
-    public int getInstructionTime() {
-        return instructionTime;
-    }
-
-    public void setInstructionTime(int instructionTime) {
-        this.instructionTime = instructionTime;
-    }
 
     public InstructionStatus getInstructionState() {
         return instructionState;

@@ -1,6 +1,9 @@
 package com.os;
 
-import com.hardware.Clock;
+import com.handle.BaseHandle;
+import com.handle.HandleModule;
+import com.handle.KeyBoardInput;
+import com.hardware.CPU;
 
 /**
  * @program: Process_Sheduling
@@ -9,16 +12,18 @@ import com.hardware.Clock;
  * @create: 2020-10-27-21:02
  **/
 public class SystemController {
+    public static SystemController systemController = new SystemController();
 
-    FileOperator fileOperator = new FileOperator();
     public void SystemStart(){
-        //系统运行
-        //计时器运行
-        Clock clock = new Clock();
-        clock.startTimer();
-        //初始化pcb，一次性读入
-        fileOperator.ReadAllPCB(FileOperator.jobFileName);
+        //文件管理 处理pcb
+        FileOperator.fileOperator.ReadAllPCB(FileOperator.jobFileName);
         PCBPool pcbPool = new PCBPool();
-        pcbPool.allPcbList = fileOperator.TmpPCBList;
+        pcbPool.allPcbList = FileOperator.fileOperator.TmpPCBList;
+        //系统cpu运行:时钟线程
+        CPU.cpu.clock.start();
+        //开始进程调度:进程调度线程
+        Schedule.schedule.start();
+        //处理功能模块运行:3个功能处理模块线程
+        HandleModule.handleModule.run();
     }
 }

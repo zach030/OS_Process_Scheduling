@@ -1,4 +1,4 @@
-package com.configs;
+package com.status;
 
 public enum PCBStatus {
     //可使用，不可使用

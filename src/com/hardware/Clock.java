@@ -1,34 +1,46 @@
 package com.hardware;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.constant.ConstantTime;
+import com.status.ClockStatus;
 
 /*设置 1 秒执行 1 条指令，也就是假设计算机 1 秒(s)发生一次时钟硬件中断*/
-//线程 1：一秒执行一条指令，也就是假设计算机一秒发生一次时钟硬件中断。
-//线程 2：5s 检查一次生成作业文件中是否有新请求。
-//线程 3：5s 进行一次检查阻塞队列，并执行进程唤醒原语
 public class Clock extends Thread {
-    Timer timer;
-    Date date;
-    TimerTask TimeFunc;
-    public static int BREAKE_TIME = 1;
-    boolean ifInterrupt;//用来判断是否被中断
+    private ClockStatus clockStatus;
+    private int clockTime;
+
+    public ClockStatus getClockStatus() {
+        return clockStatus;
+    }
+
+    public void setClockStatus(ClockStatus clockStatus) {
+        this.clockStatus = clockStatus;
+    }
 
     public Clock() {
-        timer = new Timer();
-        date = new Date();
+        clockStatus = ClockStatus.Running;
+        clockTime = -1000;
     }
 
-    public void startTimer() {
-        Calendar calendar = Calendar.getInstance();
-        System.out.println("本系统开始时间为:" + calendar.get(Calendar.SECOND));
-        timer.schedule(TimeFunc = new TimerTask() {
-            @Override
-            public void run() {
-                date = new Date();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                System.out.println("当前系统时间为:" + df.format(date));
-            }
-        }, date, 1000);// 设定指定的时间time,此处为1000毫秒
+    public int getClockTime() {
+        return clockTime;
     }
+
+    public void setClockTime(int clockTime) {
+        this.clockTime = clockTime;
+    }
+
+    public void run() {
+        while (true) {
+            try {
+                System.out.println("time start");
+                sleep(ConstantTime.BREAKE_TIME);        //睡眠一定时间
+                setClockStatus(ClockStatus.Interrupt);      //设置标志为中断状态
+                setClockTime(getClockTime() + ConstantTime.BREAKE_TIME);         //CPU内时间自增
+                System.out.println("clock time is:" + getClockTime());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
