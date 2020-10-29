@@ -2,45 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92ee9bb4-7b31-4e0d-99c9-c68917947872" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/constant/ConstantTime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/handle/BaseHandle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/handle/HandleModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/handle/KeyBoardInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/handle/PVCommunicate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/handle/ScreenOutput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/os/Schedule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/status/ClockStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/status/ScheduleStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/SimulateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/SimulateTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/configs/InstructionStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/configs/PCBStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/configs/ProcessStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU$CpuState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU$CpuState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/Clock$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/Clock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/Clock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/FileOperator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/FileOperator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCBInstructions.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCBInstructions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCBPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCBPool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/ProcessController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/Schedule.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/SystemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/SystemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/thread/ProcessSchedule.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/SimulateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/SimulateTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/configs/InstructionStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/status/InstructionStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/configs/PCBStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/status/PCBStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/configs/ProcessStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/status/ProcessStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/hardware/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/hardware/CPU.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/hardware/Clock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/hardware/Clock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/os/FileOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/FileOperator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/os/PCB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/PCB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/os/PCBInstructions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/PCBInstructions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/os/PCBPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/PCBPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/os/ProcessController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/os/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/os/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/SystemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/thread/ProcessSchedule.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +140,7 @@
       <workItem from="1603452747232" duration="22535000" />
       <workItem from="1603725068426" duration="1723000" />
       <workItem from="1603783444410" duration="11722000" />
-      <workItem from="1603807214644" duration="20462000" />
+      <workItem from="1603807214644" duration="30085000" />
     </task>
     <servers />
   </component>
@@ -173,10 +148,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser" timestamp="1603903588733">
+    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser" timestamp="1603952688437">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser/0.0.1280.689@0.0.1280.689" timestamp="1603903588733" />
+    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser/0.0.1280.689@0.0.1280.689" timestamp="1603952688437" />
     <state x="278" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603900915685">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
@@ -189,22 +164,22 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="371" y="27" key="FileChooserDialogImpl/0.0.1280.689@0.0.1280.689" timestamp="1603692408628" />
-    <state width="1227" height="411" key="GridCell.Tab.0.bottom" timestamp="1603903913279">
+    <state width="1227" height="383" key="GridCell.Tab.0.bottom" timestamp="1603941444920">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="411" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1603903913279" />
-    <state width="1227" height="411" key="GridCell.Tab.0.center" timestamp="1603903913279">
+    <state width="1227" height="383" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1603941444920" />
+    <state width="1227" height="383" key="GridCell.Tab.0.center" timestamp="1603941444920">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="411" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1603903913279" />
-    <state width="1227" height="411" key="GridCell.Tab.0.left" timestamp="1603903913278">
+    <state width="1227" height="383" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1603941444920" />
+    <state width="1227" height="383" key="GridCell.Tab.0.left" timestamp="1603941444919">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="411" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1603903913278" />
-    <state width="1227" height="411" key="GridCell.Tab.0.right" timestamp="1603903913279">
+    <state width="1227" height="383" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1603941444919" />
+    <state width="1227" height="383" key="GridCell.Tab.0.right" timestamp="1603941444920">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="411" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1603903913279" />
+    <state width="1227" height="383" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1603941444920" />
     <state width="1227" height="193" key="GridCell.Tab.1.bottom" timestamp="1603692410255">
       <screen x="0" y="0" width="1280" height="689" />
     </state>

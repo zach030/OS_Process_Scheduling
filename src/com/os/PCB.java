@@ -17,7 +17,7 @@ public class PCB {
     public ArrayList<PCBInstructions> pcbInstructions = new ArrayList<>();//包含的指令list
 
     //进程在队列中的信息--抽象类
-    private abstract class PCBInQueue {
+    private abstract static class PCBInQueue {
         int BqNum;//编号
         int BqTime;//进入队列时间
 
@@ -30,16 +30,16 @@ public class PCB {
         }
     }
 
-    private class PCBInReadyQueue extends PCBInQueue {
+    private static class PCBInReadyQueue extends PCBInQueue {
     } //就绪队列信息
 
-    private class PCBInKeyBoardInputQueue extends PCBInQueue {
+    private static class PCBInKeyBoardInputQueue extends PCBInQueue {
     } //键盘输入阻塞队列信息
 
-    private class PCBInScreenOutputInputQueue extends PCBInQueue {
+    private static class PCBInScreenOutputInputQueue extends PCBInQueue {
     } //屏幕输出阻塞队列信息
 
-    private class PCBInPVOperationQueue extends PCBInQueue {
+    private static class PCBInPVOperationQueue extends PCBInQueue {
     } //PV操作阻塞队列信息
 
 
@@ -138,14 +138,14 @@ public class PCB {
 
     public void createProcess() {
         //进程原语：进程创建
-        PCBPool.pcbPool.allPcbList.add(this);
+        PCBPool.pcbPool.addPCB2Pool(this);
         //将该进程设置为就绪态，加入到就绪队列
         this.setPsw(ProcessStatus.Ready);
         PCBPool.pcbPool.AddProcess2ReadyQueue(this);
     }//进程创建,不考虑作业调度，假设有足够内存。当有作业请求后自动创建
 
     public void destroyProcess() {
-        //PCBPool.pcbPool.allPcbList.remove(this);
+        PCBPool.pcbPool.deletePCBFromPool(this);
         PCBPool.pcbPool.pcbStatusHashMap.put(this,PCBStatus.UNUSABLE);
 
     }//进程撤销,执行完成的进程调用撤销函数；

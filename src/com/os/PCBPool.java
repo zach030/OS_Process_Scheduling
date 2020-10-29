@@ -7,9 +7,11 @@ import java.util.*;
 
 //PCB管理池
 public class PCBPool {
+    //实例PCB池对象
     public static PCBPool pcbPool = new PCBPool();
-    //所有的PCB
-    public ArrayList<PCB> allPcbList = new ArrayList<>();
+
+    //所有的PCB队列
+    private ArrayList<PCB> allPcbList = new ArrayList<>();
     //PCB池状态MAP
     HashMap<PCB, PCBStatus> pcbStatusHashMap = new HashMap<>();
     //就绪队列
@@ -32,14 +34,39 @@ public class PCBPool {
         return count;
     }
 
+    public boolean isReadyQueueEmpty() {
+        return this.readyQueue.isEmpty();
+    }
+
+    public boolean isInputBlockQueueEmpty() {
+        return this.inputBlockQueue.isEmpty();
+    }
+
+    public boolean isOutPutBlockQueueEmpty() {
+        return this.outputBlockQueue.isEmpty();
+    }
+
+    public boolean isPVBlockQueueEmpty() {
+        return this.pvBlockQueue.isEmpty();
+    }
+
+    public ArrayList<PCB> getAllPcbList() {
+        return allPcbList;
+    }
+
+    public void setAllPcbList(ArrayList<PCB> allPcbList) {
+        this.allPcbList = allPcbList;
+    }
+
     //将某PCB从池中删除-->标记不可用
     public void deletePCBFromPool(PCB pcb) {
         pcbStatusHashMap.put(pcb, PCBStatus.UNUSABLE);
     }
 
-    public void addPCB2Pool(PCB pcb){
+    public void addPCB2Pool(PCB pcb) {
         allPcbList.add(pcb);
     }
+
     public void AddProcess2ReadyQueue(PCB pcb) {
         readyQueue.add(pcb);
     }

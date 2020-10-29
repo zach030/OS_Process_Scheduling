@@ -1,5 +1,7 @@
 package com.os;
 
+import com.hardware.CPU;
+import com.hardware.Clock;
 import com.status.InstructionStatus;
 
 import java.io.BufferedReader;
@@ -15,6 +17,7 @@ import java.util.HashMap;
  * @create: 2020-10-27-21:36
  **/
 public class FileOperator {
+
     public static FileOperator fileOperator = new FileOperator();
 
     //从文件中读取的临时pcb
@@ -24,6 +27,14 @@ public class FileOperator {
     public static String instructionFileName;
     ArrayList<PCB> TmpPCBList = new ArrayList<>();
     HashMap<PCB, String> PCBInstructionFile = new HashMap<>();
+
+    public boolean isTime2ReadJob() {
+        if (CPU.cpu.clock.getClockInterruptTimes() % 5 == 0) {
+            System.out.println("5 times clock thread happen, need to read new job from file");
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         FileOperator fileOperator = new FileOperator();
@@ -39,7 +50,7 @@ public class FileOperator {
                 String[] tmp = line.split(",");
                 PCB pcb = new PCB();
                 pcb.setProID(Integer.parseInt(tmp[0]));
-                System.out.println("This is job: "+pcb.getProID());
+                System.out.println("This is job: " + pcb.getProID());
                 pcb.setPriority(Integer.parseInt(tmp[1]));
                 pcb.setInTimes(Integer.parseInt(tmp[2]));
                 pcb.setInstrucNum(Integer.parseInt(tmp[3]));
@@ -48,7 +59,7 @@ public class FileOperator {
                 char newChar = tmp[0].charAt(0);
                 instrucName = instrucName.replace(oldChar, newChar);
                 instructionFileName = abstractFileName + instrucName;
-                ReadPCBInstructions(instructionFileName);
+                ReadPCBInstructions(instructionFileName, pcb);
             }
             br.close();
             fr.close();
@@ -57,20 +68,23 @@ public class FileOperator {
         }
     }
 
-    public void ReadPCBInstructions(String filename) {
+    public void ReadOneNewPCB() {
+
+    }
+
+    public void ReadPCBInstructions(String filename, PCB pcb) {
         try {
             FileReader fr = new FileReader(filename);
             BufferedReader br = new BufferedReader(fr);
             String line = null;
             while ((line = br.readLine()) != null) {
                 String[] tmp = line.split(",");
-                PCB pcb = new PCB();
                 PCBInstructions pcbInstructions = new PCBInstructions();
                 pcbInstructions.setInstructionID(Integer.parseInt(tmp[0]));
                 pcbInstructions.setInstructionState(InstructionStatus.values()[Integer.parseInt(tmp[1])]);
                 pcb.pcbInstructions.add(pcbInstructions);
-                System.out.println("read pcb instructions id:  "+pcbInstructions.getInstructionID()+"" +
-                        ",state:"+pcbInstructions.getInstructionState());
+                System.out.println("read pcb instructions id:  " + pcbInstructions.getInstructionID() + "" +
+                        ",state:" + pcbInstructions.getInstructionState());
             }
             br.close();
             fr.close();

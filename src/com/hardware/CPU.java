@@ -4,8 +4,12 @@ import com.os.PCB;
 import com.os.PCBInstructions;
 
 public class CPU {
+    //实例CPU对象
     public static CPU cpu = new CPU();
-    public Clock clock;
+    //clock对象,统一通过cpu来调用
+    public Clock clock = Clock.clock;
+
+
     private int PC;//程序计数器，当前正在运行的进程序号
     private PCBInstructions IR;//指令寄存器,存放指令状态
     private int PSW;//状态寄存器，当前正在运行的指令
@@ -17,8 +21,8 @@ public class CPU {
     CpuState cpuState;                    //CPU的状态
 
 
+
     public CPU() {
-        clock = new Clock();
     }
 
     public CpuState getCpuState() {

@@ -2,6 +2,7 @@ package com.os;
 
 import com.constant.ConstantTime;
 import com.hardware.CPU;
+import com.hardware.Clock;
 import com.status.ClockStatus;
 import com.status.ScheduleStatus;
 
@@ -21,8 +22,14 @@ public class Schedule extends Thread {
     public Schedule(){
 
     }
+
+
+
     @Override
     public void run() {
+        //TODO 调度功能:
+        //1 对时钟中断进行计数,5次则进行读job
+
         while (true) {
             try {
                 System.out.println("schedule start");
