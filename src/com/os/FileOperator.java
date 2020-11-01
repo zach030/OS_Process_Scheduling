@@ -28,14 +28,6 @@ public class FileOperator {
     ArrayList<PCB> TmpPCBList = new ArrayList<>();
     HashMap<PCB, String> PCBInstructionFile = new HashMap<>();
 
-    public boolean isTime2ReadJob() {
-        if (CPU.cpu.clock.getClockInterruptTimes() % 5 == 0) {
-            System.out.println("5 times clock thread happen, need to read new job from file");
-            return true;
-        }
-        return false;
-    }
-
     public static void main(String[] args) {
         FileOperator fileOperator = new FileOperator();
         fileOperator.ReadAllPCB(jobFileName);
@@ -50,7 +42,7 @@ public class FileOperator {
                 String[] tmp = line.split(",");
                 PCB pcb = new PCB();
                 pcb.setProID(Integer.parseInt(tmp[0]));
-                System.out.println("This is job: " + pcb.getProID());
+                //System.out.println("This is job: " + pcb.getProID());
                 pcb.setPriority(Integer.parseInt(tmp[1]));
                 pcb.setInTimes(Integer.parseInt(tmp[2]));
                 pcb.setInstrucNum(Integer.parseInt(tmp[3]));
@@ -66,6 +58,7 @@ public class FileOperator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("读取5个初始job文件及其指令文件完毕");
     }
 
     public void ReadOneNewPCB() {
@@ -83,8 +76,6 @@ public class FileOperator {
                 pcbInstructions.setInstructionID(Integer.parseInt(tmp[0]));
                 pcbInstructions.setInstructionState(InstructionStatus.values()[Integer.parseInt(tmp[1])]);
                 pcb.pcbInstructions.add(pcbInstructions);
-                System.out.println("read pcb instructions id:  " + pcbInstructions.getInstructionID() + "" +
-                        ",state:" + pcbInstructions.getInstructionState());
             }
             br.close();
             fr.close();

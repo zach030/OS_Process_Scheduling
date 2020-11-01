@@ -1,6 +1,7 @@
 package com.os;
 
 import com.status.InstructionStatus;
+import org.w3c.dom.ls.LSOutput;
 
 /**
  * @program: Process_Sheduling
@@ -9,8 +10,11 @@ import com.status.InstructionStatus;
  * @create: 2020-10-27-23:11
  **/
 public class PCBInstructions {
-    private int instructionID;            //指令编号
-    private InstructionStatus instructionState;        //指令类型
+    //指令编号
+    private int instructionID;
+    //指令类型
+    private InstructionStatus instructionState;
+
 
     public InstructionStatus getInstructionState() {
         return instructionState;
@@ -26,5 +30,9 @@ public class PCBInstructions {
 
     public void setInstructionID(int instructionID) {
         this.instructionID = instructionID;
+    }
+
+    public void displayInstruction() {
+        System.out.println("本指令编号：" + this.getInstructionID() + "，指令类型：" + this.getInstructionState());
     }
 }

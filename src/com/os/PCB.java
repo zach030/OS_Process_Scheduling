@@ -1,6 +1,7 @@
 package com.os;
 
 import com.status.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -15,6 +16,14 @@ public class PCB {
     private int PC;//下一条将执行的指令编号：Instruc_ID
     private ProcessStatus psw;//进程状态：运行、阻塞、就绪
     public ArrayList<PCBInstructions> pcbInstructions = new ArrayList<>();//包含的指令list
+
+    public PCBInstructions getCurrentInstruction() {
+        return this.pcbInstructions.get(this.IR);
+    }
+
+    public PCBInstructions getInstructionById(int no) {
+        return this.pcbInstructions.get(no);
+    }
 
     //进程在队列中的信息--抽象类
     private abstract static class PCBInQueue {
@@ -41,7 +50,6 @@ public class PCB {
 
     private static class PCBInPVOperationQueue extends PCBInQueue {
     } //PV操作阻塞队列信息
-
 
     public InstructionStatus getInstructionState() {
         return pcbInstructions.get(this.IR).getInstructionState();
@@ -77,6 +85,10 @@ public class PCB {
 
     public int getIR() {
         return IR;
+    }
+
+    public void AddCurrentIR() {
+        this.IR++;
     }
 
     public void setIR(int IR) {
@@ -120,6 +132,10 @@ public class PCB {
         return InTimes;
     }
 
+    public int getInClockTime() {
+        return InTimes * 1000;
+    }
+
     public int getPriority() {
         return Priority;
     }
@@ -136,24 +152,71 @@ public class PCB {
         this.psw = psw;
     }
 
+    public int getPCBCurrentRunTime() {
+        int currentTotalRunTime = 0;
+        for (int i = 0; i < this.getIR(); i++) {
+            switch (this.getInstructionById(i).getInstructionState()) {
+                case USERMODE_CALC:
+                    currentTotalRunTime += 1;
+                    break;
+                case PV_OPERATION:
+                    currentTotalRunTime += 2;
+                    break;
+                case SCREEN_DISPLAY:
+                    currentTotalRunTime += 3;
+                    break;
+                case KEYBOARD_INPUT:
+                    currentTotalRunTime += 4;
+                    break;
+            }
+        }
+        return currentTotalRunTime;
+    }
+
+    public int getPCBRunTotalNeedTime() {
+        int totalRunTime = 0;
+        for (int i = 0; i < this.getInstrucNum(); i++) {
+            switch (this.getInstructionById(i).getInstructionState()) {
+                case KEYBOARD_INPUT:
+                    totalRunTime += 4;
+                    break;
+                case SCREEN_DISPLAY:
+                    totalRunTime += 3;
+                    break;
+                case PV_OPERATION:
+                    totalRunTime += 2;
+                    break;
+                case USERMODE_CALC:
+                    totalRunTime += 1;
+                    break;
+            }
+        }
+        return totalRunTime;
+    }
+
+    public boolean isPCBRunOver() {
+        return this.getPCBCurrentRunTime() >= this.getPCBRunTotalNeedTime();
+    }
+
     public void createProcess() {
-        //进程原语：进程创建
-        PCBPool.pcbPool.addPCB2Pool(this);
+        //进程创建
         //将该进程设置为就绪态，加入到就绪队列
         this.setPsw(ProcessStatus.Ready);
         PCBPool.pcbPool.AddProcess2ReadyQueue(this);
-    }//进程创建,不考虑作业调度，假设有足够内存。当有作业请求后自动创建
+    }
 
     public void destroyProcess() {
         PCBPool.pcbPool.deletePCBFromPool(this);
-        PCBPool.pcbPool.pcbStatusHashMap.put(this,PCBStatus.UNUSABLE);
+        PCBPool.pcbPool.readyQueue.remove(this);
+        PCBPool.pcbPool.runningQueue.remove(this);
+        System.out.println("已从PCB池中删除此进程");
 
     }//进程撤销,执行完成的进程调用撤销函数；
 
-    public void blockProcess(InstructionStatus instructionStatus) {
+    public void blockProcess(@NotNull InstructionStatus instructionStatus) {
         //进程原语：进程阻塞
         //将进程加入到阻塞队列
-        switch (instructionStatus){
+        switch (instructionStatus) {
             case PV_OPERATION:
                 PCBPool.pcbPool.AddProcess2PVBlockQueue(this);
                 break;

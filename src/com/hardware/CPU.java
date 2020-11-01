@@ -2,6 +2,7 @@ package com.hardware;
 
 import com.os.PCB;
 import com.os.PCBInstructions;
+import org.jetbrains.annotations.NotNull;
 
 public class CPU {
     //实例CPU对象
@@ -9,17 +10,17 @@ public class CPU {
     //clock对象,统一通过cpu来调用
     public Clock clock = Clock.clock;
 
-
     private int PC;//程序计数器，当前正在运行的进程序号
     private PCBInstructions IR;//指令寄存器,存放指令状态
     private int PSW;//状态寄存器，当前正在运行的指令
     private PCB runningPCB;//正在运行的进程控制块
+
     //CPU状态
     private enum CpuState {
         USERMODE, COREMODE
     }
-    CpuState cpuState;                    //CPU的状态
 
+    CpuState cpuState;                    //CPU的状态
 
 
     public CPU() {
@@ -37,7 +38,8 @@ public class CPU {
         return runningPCB;
     }
 
-    public void setRunningPCB(PCB runningPCB) {
+    public void setRunningPCB(@NotNull PCB runningPCB) {
+        System.out.println("进程：" + runningPCB.getProID() + "正在运行");
         this.runningPCB = runningPCB;
     }
 
@@ -91,14 +93,23 @@ public class CPU {
         }
     }
 
-    public void SetRunningPCB(PCB pcb) {
-        //设置当前执行的PCB
-        this.runningPCB = pcb;
-    }
-
     public void DeleteRunningPCB() {
         //清空当前的PCB指针
         this.runningPCB = null;
     }
 
+    public void Protect(PCB p) {
+        //TODO 由pcb设置当前的psw，currenttime
+
+    }
+
+    ;//CPU寄存器现场保护
+
+    public void Recovery(PCB p) {
+        //TODO 将当前pcb赋值为p
+        this.setRunningPCB(p);
+        //将cpu的类变量都用pcb赋值，恢复
+        this.setPC(p.getProID());
+        //this.setIR();
+    }
 }

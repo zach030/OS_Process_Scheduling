@@ -1,6 +1,7 @@
 package com.hardware;
 
 import com.constant.ConstantTime;
+import com.os.PCBPool;
 import com.status.ClockStatus;
 
 /*设置 1 秒执行 1 条指令，也就是假设计算机 1 秒(s)发生一次时钟硬件中断*/
@@ -10,6 +11,7 @@ public class Clock extends Thread {
     private ClockStatus clockStatus;
     private int clockTime;
     private int clockInterruptTimes = 0;
+
     public ClockStatus getClockStatus() {
         return clockStatus;
     }
@@ -36,17 +38,24 @@ public class Clock extends Thread {
     }
 
     public void run() {
+        System.out.println("线程：---------CPU仿真时钟线程开始运行");
         while (true) {
             try {
-                System.out.println("time start");
-                sleep(ConstantTime.BREAKE_TIME);        //睡眠一定时间
-                this.clockInterruptTimes++;             //记录时钟中断次数
-                setClockStatus(ClockStatus.Interrupt);      //设置标志为中断状态
-                setClockTime(getClockTime() + ConstantTime.BREAKE_TIME);         //CPU内时间自增
-                System.out.println("clock time is:" + getClockTime());
+                //设置标志为中断状态
+                setClockStatus(ClockStatus.Interrupt);
+                //CPU内时间自增
+                clockTime += ConstantTime.BREAK_TIME;
+                //System.out.println("CPU 当前时钟时间是:" + getClockTime() / 1000);
+                //记录时钟中断次数
+                this.clockInterruptTimes++;
+                //检查pcb池,将到时间的进程创建加入就绪队列
+                PCBPool.pcbPool.checkPCBInTime2GetReady();
+                //时钟中断1s
+                sleep(ConstantTime.BREAK_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
     }
 
