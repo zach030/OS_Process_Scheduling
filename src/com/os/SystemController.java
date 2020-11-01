@@ -28,11 +28,11 @@ public class SystemController {
 
     public boolean isSystemStop() {
         //检查系统状态:如果所有队列都空,则系统结束运行
-        if (!PCBPool.pcbPool.isInputBlockQueueEmpty())
+        if (PCBPool.pcbPool.isInputBlockQueueEmpty())
             return false;
-        if (!PCBPool.pcbPool.isOutPutBlockQueueEmpty())
+        if (PCBPool.pcbPool.isOutPutBlockQueueEmpty())
             return false;
-        if (!PCBPool.pcbPool.isPVBlockQueueEmpty())
+        if (PCBPool.pcbPool.isPVBlockQueueEmpty())
             return false;
         return PCBPool.pcbPool.isReadyQueueEmpty();
     }

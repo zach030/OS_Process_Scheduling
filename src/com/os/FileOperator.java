@@ -28,10 +28,10 @@ public class FileOperator {
     ArrayList<PCB> TmpPCBList = new ArrayList<>();
     HashMap<PCB, String> PCBInstructionFile = new HashMap<>();
 
-    public static void main(String[] args) {
-        FileOperator fileOperator = new FileOperator();
-        fileOperator.ReadAllPCB(jobFileName);
-    }
+//    public static void main(String[] args) {
+//        FileOperator fileOperator = new FileOperator();
+//        fileOperator.ReadAllPCB(jobFileName);
+//    }
 
     public void ReadAllPCB(String filename) {
         try {

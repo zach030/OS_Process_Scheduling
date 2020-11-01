@@ -20,12 +20,22 @@ public class CPU {
         USERMODE, COREMODE
     }
 
-    CpuState cpuState;                    //CPU的状态
+    private CpuState cpuState;                    //CPU的状态
 
 
     public CPU() {
     }
 
+    public void displayCPUState(){
+        switch (this.getCpuState()){
+            case COREMODE:
+                System.out.println("------------------------------CPU工作在核心态----------------");
+                break;
+            case USERMODE:
+                System.out.println("------------------------------CPU工作在用户态----------------");
+                break;
+        }
+    }
     public CpuState getCpuState() {
         return cpuState;
     }

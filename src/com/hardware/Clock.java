@@ -41,6 +41,11 @@ public class Clock extends Thread {
         System.out.println("线程：---------CPU仿真时钟线程开始运行");
         while (true) {
             try {
+                //时钟中断1s
+                sleep(ConstantTime.BREAK_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
                 //设置标志为中断状态
                 setClockStatus(ClockStatus.Interrupt);
                 //CPU内时间自增
@@ -50,10 +55,7 @@ public class Clock extends Thread {
                 this.clockInterruptTimes++;
                 //检查pcb池,将到时间的进程创建加入就绪队列
                 PCBPool.pcbPool.checkPCBInTime2GetReady();
-                //时钟中断1s
-                sleep(ConstantTime.BREAK_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("######## 当前系统时间：" + ConstantTime.getSystemTime() / 1000 + "  #########");
             }
 
         }

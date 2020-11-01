@@ -2,9 +2,6 @@ package com.os;
 
 
 import com.constant.ConstantTime;
-import com.handle.KeyBoardInput;
-import com.handle.PVCommunicate;
-import com.handle.ScreenOutput;
 import com.hardware.CPU;
 import com.status.PCBStatus;
 import org.jetbrains.annotations.NotNull;
@@ -18,17 +15,17 @@ public class PCBPool {
     //所有的PCB队列
     private ArrayList<PCB> allPcbList = new ArrayList<>();
     //PCB池状态MAP
-    HashMap<PCB, PCBStatus> pcbStatusHashMap = new HashMap<>();
+    private HashMap<PCB, PCBStatus> pcbStatusHashMap = new HashMap<>();
     //运行PCB队列
-    ArrayList<PCB> runningQueue = new ArrayList<>();
+    private ArrayList<PCB> runningQueue = new ArrayList<>();
     //就绪队列
-    ArrayList<PCB> readyQueue = new ArrayList<>();
+    private ArrayList<PCB> readyQueue = new ArrayList<>();
     //键盘输入阻塞队列
-    ArrayList<PCB> inputBlockQueue = new ArrayList<>();
+    private ArrayList<PCB> inputBlockQueue = new ArrayList<>();
     //屏幕输出阻塞队列
-    ArrayList<PCB> outputBlockQueue = new ArrayList<>();
+    private ArrayList<PCB> outputBlockQueue = new ArrayList<>();
     //PV阻塞队列
-    ArrayList<PCB> pvBlockQueue = new ArrayList<>();
+    private ArrayList<PCB> pvBlockQueue = new ArrayList<>();
 
     //统计可用PCB数
     public int getUsablePCBNum() {
@@ -49,6 +46,37 @@ public class PCBPool {
             }
         }
         return usAblePCBList;
+    }
+//    public static void main(String []args){
+//        ArrayList<PCB> tmp = new ArrayList<>();
+//        PCB pcb = new PCB();
+//        pcb.setProID(1);
+//        pcb.setPriority(3);
+//        tmp.add(pcb);
+//        PCB pcb1 = new PCB();
+//        pcb1.setProID(2);
+//        pcb1.setPriority(4);
+//        tmp.add(pcb1);
+//        PCB pcb2 = new PCB();
+//        pcb2.setProID(3);
+//        pcb2.setPriority(2);
+//        tmp.add(pcb2);
+//        System.out.println("排序前："+tmp.get(0).getProID()+","+tmp.get(1).getProID()+","+tmp.get(2).getProID());
+//        tmp.sort(new Comparator<PCB>() {
+//            @Override
+//            public int compare(PCB pcb1, PCB pcb2) {
+//                return pcb1.getPriority() - pcb2.getPriority();
+//            }
+//        });
+//        System.out.println("排序后："+tmp.get(0).getProID()+","+tmp.get(1).getProID()+","+tmp.get(2).getProID());
+//    }
+    public void sortReadyQueueByPriority() {
+        this.readyQueue.sort(new Comparator<PCB>() {
+            @Override
+            public int compare(PCB pcb1, PCB pcb2) {
+                return pcb1.getPriority() - pcb2.getPriority();
+            }
+        });
     }
 
     public ArrayList<PCB> getInputBlockQueue() {
@@ -79,6 +107,16 @@ public class PCBPool {
         return readyQueue;
     }
 
+    public void displayReadyQueue() {
+        System.out.println("就绪队列中有以下进程：");
+        Iterator<PCB> iterator = readyQueue.iterator();
+        while (iterator.hasNext()){
+            PCB next = iterator.next();
+            next.displayProcess();
+        }
+        System.out.println();
+    }
+
     public void setReadyQueue(ArrayList<PCB> readyQueue) {
         this.readyQueue = readyQueue;
     }
@@ -95,19 +133,20 @@ public class PCBPool {
         return this.readyQueue.isEmpty();
     }
 
-    public boolean isRunningQueueEmpty(){
+    public boolean isRunningQueueEmpty() {
         return this.runningQueue.isEmpty();
     }
+
     public boolean isInputBlockQueueEmpty() {
-        return this.inputBlockQueue.isEmpty();
+        return !this.inputBlockQueue.isEmpty();
     }
 
     public boolean isOutPutBlockQueueEmpty() {
-        return this.outputBlockQueue.isEmpty();
+        return !this.outputBlockQueue.isEmpty();
     }
 
     public boolean isPVBlockQueueEmpty() {
-        return this.pvBlockQueue.isEmpty();
+        return !this.pvBlockQueue.isEmpty();
     }
 
     public ArrayList<PCB> getAllPcbList() {
@@ -131,20 +170,32 @@ public class PCBPool {
         allPcbList.add(pcb);
     }
 
-    public void AddProcess2ReadyQueue(PCB pcb) {
+    synchronized public void AddProcess2ReadyQueue(PCB pcb) {
         readyQueue.add(pcb);
+        pcb.pcbInReadyQueue.setBqNum(readyQueue.indexOf(pcb));
+        pcb.pcbInReadyQueue.setBqTime(ConstantTime.getSystemTime());
     }
 
-    public void AddProcess2InputBlockQueue(PCB pcb) {
+    synchronized public void AddProcess2InputBlockQueue(PCB pcb) {
         inputBlockQueue.add(pcb);
+        pcb.pcbInKeyBoardInputQueue.setBqNum(inputBlockQueue.indexOf(pcb));
+        pcb.pcbInKeyBoardInputQueue.setBqTime(ConstantTime.getSystemTime());
     }
 
-    public void AddProcess2OutputBlockQueue(PCB pcb) {
+    synchronized public void AddProcess2OutputBlockQueue(PCB pcb) {
         outputBlockQueue.add(pcb);
+        pcb.pcbInScreenOutputInputQueue.setBqNum(outputBlockQueue.indexOf(pcb));
+        pcb.pcbInScreenOutputInputQueue.setBqTime(ConstantTime.getSystemTime());
     }
 
-    public void AddProcess2PVBlockQueue(PCB pcb) {
+    synchronized public void AddProcess2PVBlockQueue(PCB pcb) {
         pvBlockQueue.add(pcb);
+        pcb.pcbInPVOperationQueue.setBqNum(pvBlockQueue.indexOf(pcb));
+        pcb.pcbInPVOperationQueue.setBqTime(ConstantTime.getSystemTime());
+    }
+
+    public void AddProcess2RunningQueue(PCB pcb) {
+        runningQueue.add(pcb);
     }
 
     public PCBPool() {
@@ -171,25 +222,5 @@ public class PCBPool {
         }
     }
 
-
-    public void NormalInstrucRun() {
-        System.out.println("进程正常调度");
-        CPU.cpu.updateCpuModeByInstruction();
-    }
-
-    public void InputInstrucRun() {
-        KeyBoardInput keyBoardInput = new KeyBoardInput(ConstantTime.KEYBOARD_INPUT_INTERVAL);
-        keyBoardInput.start();
-    }
-
-    public void OutPutInstrucRun() {
-        ScreenOutput screenOutput = new ScreenOutput(ConstantTime.SCREEN_OUTPUT_INTERVAL);
-        screenOutput.start();
-    }
-
-    public void PVCommunicateInstrucRun() {
-        PVCommunicate pvCommunicate = new PVCommunicate(ConstantTime.PV_COMMUNICATE_INTERVAL);
-        pvCommunicate.start();
-    }
 
 }

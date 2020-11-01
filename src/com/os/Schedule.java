@@ -15,7 +15,6 @@ import com.status.ScheduleStatus;
 //进程调度
 public class Schedule extends Thread {
     public static Schedule schedule = new Schedule();
-
     ScheduleStatus scheduleStatus;
     int wait4Schedule = 0;
 
@@ -26,14 +25,12 @@ public class Schedule extends Thread {
     @Override
     public void run() {
         System.out.println("线程：---------进程调度线程开始执行");
-
         //TODO 1 比较pcb intimes,加入就绪队列
         while (true) {
             try {
                 if (CPU.cpu.clock.getClockStatus() == ClockStatus.Interrupt) {
                     LowScheduling();
                 }
-
                 sleep(ConstantTime.BREAK_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -48,50 +45,62 @@ public class Schedule extends Thread {
     }
 
     public void LowScheduling() {
-        System.out.println("系统正在执行低级调度");
+        System.out.println("*************************正在进行一次调度******************************");
+        ConstantTime.constantTime.SystemAddTime();
+        //对就绪队列根据进程优先级进行排序
+        PCBPool.pcbPool.sortReadyQueueByPriority();
         //1、检查是否有正在运行的进程
-        if (PCBPool.pcbPool.isRunningQueueEmpty()) {
-            System.out.println("当前无进程正在执行");
+        //没有
+        //PCBPool.pcbPool.displayReadyQueue();
+        if (CPU.cpu.getRunningPCB() == null) {
+            System.out.println("==========当前无进程正在执行==========");
             //进行调度:如果就绪队列为空，则return，否则就绪队列第一个pcb开始运行
-            if (PCBPool.pcbPool.readyQueue.size() == 0) {
+            if (PCBPool.pcbPool.getReadyQueue().size() == 0) {
                 System.out.println("当前就绪队列为空，结束此次调度");
                 return;
             }
             //调度算法简单版本：就绪队列对头出列，进行执行
-            PCBPool.pcbPool.runningQueue.add(PCBPool.pcbPool.readyQueue.get(0));
-            CPU.cpu.Recovery(PCBPool.pcbPool.runningQueue.get(0));
+            //就绪队列不为空
+            PCB ready2Run = PCBPool.pcbPool.getReadyQueue().get(0);
+
+            ready2Run.setStartTime(ConstantTime.getSystemTime());
+            //加入running queue
+            PCBPool.pcbPool.AddProcess2RunningQueue(ready2Run);
+            CPU.cpu.Recovery(ready2Run);
+        } else {
+            //有正在运行
+            PCB runningPCB = CPU.cpu.getRunningPCB();
+            System.out.println("正在运行进程：" + runningPCB.getProID() + ",正在运行指令：");
+            //判断进程是否运行完
+            if (runningPCB.isPCBRunOver()) {
+                //已经运行完，销毁进程
+                System.out.println("进程" + runningPCB.getProID() + "，已经运行结束");
+                runningPCB.destroyProcess();
+                return;
+            }
+            //得到当前正在执行的指令
+            runningPCB.getCurrentInstruction().displayInstruction();
+            //cpu更新模式
+            CPU.cpu.updateCpuModeByInstruction();
+            //CPU.cpu.displayCPUState();
+            //2、开始运行进程
+            switch (runningPCB.getInstructionState()) {
+                case KEYBOARD_INPUT:
+                    runningPCB.InputInstrucRun();
+                    break;
+                case SCREEN_DISPLAY:
+                    runningPCB.OutPutInstrucRun();
+                    break;
+                case PV_OPERATION:
+                    runningPCB.PVCommunicateInstrucRun();
+                    break;
+                case USERMODE_CALC:
+                    runningPCB.NormalInstrucRun();
+            }
+            //没到时间片，指令+1
+            runningPCB.AddCurrentIR();
         }
-        PCB runningPCB = PCBPool.pcbPool.runningQueue.get(0);
-        System.out.println("正在运行进程：" + runningPCB.getProID() + ",正在运行指令：");
-        //判断进程是否运行完
-        if (runningPCB.isPCBRunOver()) {
-            //已经运行完，销毁进程
-            System.out.println("进程" + runningPCB.getProID() + "，已经运行结束");
-            runningPCB.destroyProcess();
-            return;
-        }
-        runningPCB.getCurrentInstruction().displayInstruction();
-        //2、开始运行进程
-        switch (runningPCB.getInstructionState()) {
-            case KEYBOARD_INPUT:
-                PCBPool.pcbPool.InputInstrucRun();
-                break;
-            case SCREEN_DISPLAY:
-                PCBPool.pcbPool.OutPutInstrucRun();
-                break;
-            case PV_OPERATION:
-                PCBPool.pcbPool.PVCommunicateInstrucRun();
-                break;
-            case USERMODE_CALC:
-                PCBPool.pcbPool.NormalInstrucRun();
-        }
-        //没运行完
-        //判断是否到时间片,如果已经到时间片，则加入阻塞队列
-//        if (){
-//
-//        }
-        //没到时间片，指令+1
-        runningPCB.AddCurrentIR();
+
     }
 
 
