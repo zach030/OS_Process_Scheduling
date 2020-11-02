@@ -13,7 +13,7 @@ public class ConstantTime {
     //中断间隔时间
     public static final int BREAK_TIME = 1000;
     //时间片长度
-    public static final int TIME_SLICE = 2000;
+    public static final int TIME_SLICE = 2;
     //键盘输入线程间隔时间
     public static final int KEYBOARD_INPUT_INTERVAL = 4000;
     //屏幕输出线程间隔时间

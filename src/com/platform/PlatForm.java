@@ -1,7 +1,7 @@
 package com.platform;
 
 /**
- * @program: Process_Sheduling
+ * @program: Process_Scheduling
  * @description: 界面图形化设计
  * @author: zach
  * @create: 2020-11-01-18:41

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Process_Sheduling.iml" filepath="$PROJECT_DIR$/Process_Sheduling.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Process_Scheduling.iml" filepath="$PROJECT_DIR$/Process_Scheduling.iml" />
     </modules>
   </component>
 </project>

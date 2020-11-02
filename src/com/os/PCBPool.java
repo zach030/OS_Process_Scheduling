@@ -47,7 +47,8 @@ public class PCBPool {
         }
         return usAblePCBList;
     }
-//    public static void main(String []args){
+
+    //    public static void main(String []args){
 //        ArrayList<PCB> tmp = new ArrayList<>();
 //        PCB pcb = new PCB();
 //        pcb.setProID(1);
@@ -107,10 +108,10 @@ public class PCBPool {
         return readyQueue;
     }
 
-    public void displayReadyQueue() {
+    synchronized public void displayReadyQueue() {
         System.out.println("就绪队列中有以下进程：");
         Iterator<PCB> iterator = readyQueue.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             PCB next = iterator.next();
             next.displayProcess();
         }
@@ -211,7 +212,7 @@ public class PCBPool {
 
     public void checkPCBInTime2GetReady() {
         ArrayList<PCB> usAblePCBList = getUsAblePCBList();
-        int cpuTime = CPU.cpu.clock.getClockTime();
+        int cpuTime = ConstantTime.getSystemTime();
         for (PCB pcb : usAblePCBList) {
             if (pcb.getInClockTime() == cpuTime) {
                 //System.out.println(pcb.getInClockTime());

@@ -1,6 +1,12 @@
 package com.os;
 
+import com.constant.ConstantTime;
+import com.handle.KeyBoardInput;
+import com.handle.PVCommunicate;
+import com.handle.ScreenOutput;
 import com.hardware.*;
+
+import java.net.SecureCacheResponse;
 
 /**
  * @program: Process_Sheduling
@@ -22,8 +28,15 @@ public class SystemController {
         //开始进程调度:进程调度线程
         Schedule.schedule.start();
         //仿真程序初始化时启动:input,output,pv三个操作线程
-        //监视新的PCB线程启动
-        WatchJob.watchJob.start();
+
+    }
+
+    public void SystemStop() {
+        //系统cpu运行:时钟线程
+        CPU.cpu.clock.interrupt();
+        //开始进程调度:进程调度线程
+        Schedule.schedule.interrupt();
+        //仿真程序初始化时启动:input,output,pv三个操作线程
     }
 
     public boolean isSystemStop() {
@@ -35,6 +48,10 @@ public class SystemController {
         if (PCBPool.pcbPool.isPVBlockQueueEmpty())
             return false;
         return PCBPool.pcbPool.isReadyQueueEmpty();
+    }
+
+    public boolean checkTime2InterruptThread() {
+        return CPU.cpu.getCpuState() == CPU.CpuState.COREMODE;
     }
 
 }

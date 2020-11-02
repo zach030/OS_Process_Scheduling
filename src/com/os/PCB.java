@@ -9,6 +9,7 @@ import com.status.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 public class PCB {
     private int ProID;//值分别为 1,2,3,4,5,6，。。
@@ -17,8 +18,8 @@ public class PCB {
     private int StartTime;//进程开始时间
     private int EndTimes;//进程结束时间
     private int InstructionsNum;//进程包含的指令数目
-    private int IR;//正在执行的指令编号：Instruc_ID
-    private int PC;//下一条将执行的指令编号：Instruc_ID
+    private int IR = 0;//正在执行的指令编号：Instruc_ID
+    private int PC = 1;//下一条将执行的指令编号：Instruc_ID
     private int timeSliceLeft;//时间片剩余时间
     public PCBInReadyQueue pcbInReadyQueue = new PCBInReadyQueue();
     public PCBInKeyBoardInputQueue pcbInKeyBoardInputQueue = new PCBInKeyBoardInputQueue();
@@ -33,6 +34,10 @@ public class PCB {
 
     public PCBInstructions getInstructionById(int no) {
         return this.pcbInstructions.get(no);
+    }
+
+    public PCB() {
+        this.timeSliceLeft = ConstantTime.TIME_SLICE;
     }
 
     //进程在队列中的信息--抽象类
@@ -115,6 +120,10 @@ public class PCB {
 
     public void AddCurrentIR() {
         this.IR++;
+    }
+
+    public void AddCurrentPC() {
+        this.PC++;
     }
 
     public void setIR(int IR) {
@@ -222,8 +231,14 @@ public class PCB {
         return totalRunTime;
     }
 
+    //进程完全运行结束
     public boolean isPCBRunOver() {
         return this.getPCBCurrentRunTime() >= this.getPCBRunTotalNeedTime();
+    }
+
+    //进程一个时间片运行完
+    public boolean isPCBRunOverInTimeSlice() {
+        return this.timeSliceLeft == 0;
     }
 
     public void displayProcess() {
@@ -241,15 +256,14 @@ public class PCB {
         PCBPool.pcbPool.deletePCBFromPool(this);
         PCBPool.pcbPool.getReadyQueue().remove(this);
         PCBPool.pcbPool.getReadyQueue().remove(this);
+        this.setEndTimes(ConstantTime.getSystemTime());
         CPU.cpu.DeleteRunningPCB();
         System.out.println("已从PCB池中删除此进程");
 
     }//进程撤销,执行完成的进程调用撤销函数；
 
     public void blockProcess(@NotNull InstructionStatus instructionStatus) {
-        //进程原语：进程阻塞
-        //将进程加入到阻塞队列
-        //移出就绪队列
+        //进程原语：进程阻塞,就绪--》阻塞
         PCBPool.pcbPool.getReadyQueue().remove(this);
         switch (instructionStatus) {
             case PV_OPERATION:
@@ -268,46 +282,51 @@ public class PCB {
         this.setPsw(ProcessStatus.Block);
     }//进程阻塞,进程切换、CPU 模式切换时调用
 
-    public void wakeProcess() {
+    //进程唤醒
+    public void wakeProcess(ArrayList<PCB> back2ReadyQueue) {
         PCBPool.pcbPool.AddProcess2ReadyQueue(this);
+        back2ReadyQueue.remove(this);
+        System.out.println("进程：" + this.getProID() + "，已回到就绪队列");
         this.setPsw(ProcessStatus.Ready);
-    }//进程唤醒
-    //Instruc_State=1：4 秒唤醒，操作阻塞队列 1；
-    //Instruc_State=3：3 秒唤醒，操作阻塞队列 2；
-    //Instruc_State=2：2 秒唤醒，操作阻塞队列 3；
+    }
 
     public void NormalInstrucRun() {
         System.out.println("进程正常调度");
+        //时间片减一
+        this.timeSliceLeft--;
+        this.AddCurrentIR();
+        this.AddCurrentPC();
     }
 
     public void InputInstrucRun() {
-        //输入阻塞指令
-        KeyBoardInput keyBoardInput = new KeyBoardInput(ConstantTime.KEYBOARD_INPUT_INTERVAL);
-        //调用阻塞线程
-        keyBoardInput.start();
         //进入阻塞队列
+        KeyBoardInput keyBoardInput = new KeyBoardInput(ConstantTime.KEYBOARD_INPUT_INTERVAL);
+        keyBoardInput.start();
         this.blockProcess(this.getInstructionState());
         //终止当前运行的进程
         CPU.cpu.DeleteRunningPCB();
+        //遇到中断，先保护现场
+        CPU.cpu.Protect(this);
     }
 
     public void OutPutInstrucRun() {
-        //输出阻塞指令
-        ScreenOutput screenOutput = new ScreenOutput(ConstantTime.SCREEN_OUTPUT_INTERVAL);
-        //调用阻塞线程
-        screenOutput.start();
         //进入阻塞队列
+        ScreenOutput screenOutput = new ScreenOutput(ConstantTime.SCREEN_OUTPUT_INTERVAL);
+        screenOutput.start();
         this.blockProcess(this.getInstructionState());
         CPU.cpu.DeleteRunningPCB();
+        //遇到中断，先保护现场
+        CPU.cpu.Protect(this);
     }
 
     public void PVCommunicateInstrucRun() {
         //PV通信阻塞指令；关时间中断
-        PVCommunicate pvCommunicate = new PVCommunicate(ConstantTime.PV_COMMUNICATE_INTERVAL);
-        //调用阻塞线程
-        pvCommunicate.start();
         //进入阻塞队列
+        PVCommunicate pvCommunicate = new PVCommunicate(ConstantTime.PV_COMMUNICATE_INTERVAL);
+        pvCommunicate.start();
         this.blockProcess(this.getInstructionState());
         CPU.cpu.DeleteRunningPCB();
+        //遇到中断，先保护现场
+        CPU.cpu.Protect(this);
     }
 }

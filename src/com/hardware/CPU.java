@@ -16,7 +16,7 @@ public class CPU {
     private PCB runningPCB;//正在运行的进程控制块
 
     //CPU状态
-    private enum CpuState {
+    public enum CpuState {
         USERMODE, COREMODE
     }
 
@@ -26,8 +26,8 @@ public class CPU {
     public CPU() {
     }
 
-    public void displayCPUState(){
-        switch (this.getCpuState()){
+    public void displayCPUState() {
+        switch (this.getCpuState()) {
             case COREMODE:
                 System.out.println("------------------------------CPU工作在核心态----------------");
                 break;
@@ -36,6 +36,28 @@ public class CPU {
                 break;
         }
     }
+
+    public void execProcess() {
+        //更新CPU模式
+        switch (runningPCB.getInstructionState()) {
+            case KEYBOARD_INPUT:
+                runningPCB.InputInstrucRun();
+                break;
+            case SCREEN_DISPLAY:
+                runningPCB.OutPutInstrucRun();
+                break;
+            case PV_OPERATION:
+                runningPCB.PVCommunicateInstrucRun();
+                break;
+            case USERMODE_CALC:
+                runningPCB.NormalInstrucRun();
+        }
+    }
+
+    public boolean isCPUWork() {
+        return this.runningPCB != null;
+    }
+
     public CpuState getCpuState() {
         return cpuState;
     }
@@ -108,18 +130,21 @@ public class CPU {
         this.runningPCB = null;
     }
 
-    public void Protect(PCB p) {
-        //TODO 由pcb设置当前的psw，currenttime
-
+    public void Protect(@NotNull PCB p) {
+        //TODO 由CPU设置当前pcb的状态
+        p.setTimeSliceLeft(2);
+        p.AddCurrentIR();
+        p.AddCurrentPC();
     }
 
     ;//CPU寄存器现场保护
 
     public void Recovery(PCB p) {
-        //TODO 将当前pcb赋值为p
+        //TODO 由pcb设置cpu
         this.setRunningPCB(p);
         //将cpu的类变量都用pcb赋值，恢复
         this.setPC(p.getProID());
-        //this.setIR();
+        //获得CPU当前应执行的指令
+        this.setIR(runningPCB.getCurrentInstruction());
     }
 }

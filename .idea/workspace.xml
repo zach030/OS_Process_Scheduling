@@ -2,27 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92ee9bb4-7b31-4e0d-99c9-c68917947872" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/platform/PlatForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/test/RR.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/test/WaitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/constant/ConstantTime.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/constant/ConstantTime.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/handle/KeyBoardInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/handle/KeyBoardInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/handle/PVCommunicate.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/handle/PVCommunicate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/handle/ScreenOutput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/handle/ScreenOutput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/CPU.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/FileOperator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/FileOperator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInKeyBoardInputQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInKeyBoardInputQueue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInPVOperationQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInPVOperationQueue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInQueue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInReadyQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInReadyQueue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInScreenOutputInputQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB$PCBInScreenOutputInputQueue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCBPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/PCBPool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/Schedule$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/Schedule$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/Schedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Process_Sheduling.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Process_Scheduling.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/SimulateTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/SimulateTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/Clock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/hardware/Clock.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/SystemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/SystemController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Process_Sheduling/com/os/WatchJob.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/SimulateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/SimulateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/constant/ConstantTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/constant/ConstantTime.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/handle/KeyBoardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/handle/KeyBoardInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/handle/PVCommunicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/handle/PVCommunicate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/handle/ScreenOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/handle/ScreenOutput.java" afterDir="false" />
@@ -33,11 +22,27 @@
       <change beforePath="$PROJECT_DIR$/src/com/os/PCBPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/PCBPool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/os/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/os/SystemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/os/SystemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/os/WatchJob.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/platform/PlatForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/platform/PlatForm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -70,25 +75,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
   </component>
-  <component name="RunManager" selected="Application.SimulateTest">
-    <configuration name="FileOperator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.os.FileOperator" />
-      <module name="Process_Sheduling" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.os.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.WaitTest">
     <configuration name="PCBPool" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.os.PCBPool" />
-      <module name="Process_Sheduling" />
+      <module name="Process_Scheduling" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.os.*" />
@@ -101,7 +96,7 @@
     </configuration>
     <configuration name="PlatForm" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.platform.PlatForm" />
-      <module name="Process_Sheduling" />
+      <module name="Process_Scheduling" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.platform.*" />
@@ -114,7 +109,7 @@
     </configuration>
     <configuration name="RR" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.test.RR" />
-      <module name="Process_Sheduling" />
+      <module name="Process_Scheduling" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.test.*" />
@@ -127,7 +122,7 @@
     </configuration>
     <configuration name="SimulateTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.SimulateTest" />
-      <module name="Process_Sheduling" />
+      <module name="Process_Scheduling" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.*" />
@@ -138,13 +133,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WaitTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.WaitTest" />
+      <module name="Process_Scheduling" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.WaitTest" />
         <item itemvalue="Application.SimulateTest" />
         <item itemvalue="Application.PCBPool" />
         <item itemvalue="Application.PlatForm" />
         <item itemvalue="Application.RR" />
-        <item itemvalue="Application.FileOperator" />
       </list>
     </recent_temporary>
   </component>
@@ -163,7 +171,8 @@
       <workItem from="1603783444410" duration="11722000" />
       <workItem from="1603807214644" duration="41696000" />
       <workItem from="1604046409620" duration="32783000" />
-      <workItem from="1604240449167" duration="8107000" />
+      <workItem from="1604240449167" duration="9420000" />
+      <workItem from="1604305420849" duration="22631000" />
     </task>
     <servers />
   </component>
@@ -171,62 +180,62 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser" timestamp="1604240489086">
+    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser" timestamp="1604309039977">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser/0.0.1280.689@0.0.1280.689" timestamp="1604240489086" />
+    <state x="402" y="0" key="#com.intellij.ide.util.MemberChooser/0.0.1280.689@0.0.1280.689" timestamp="1604309039977" />
     <state x="278" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603900915685">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="278" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.689@0.0.1280.689" timestamp="1603900915685" />
-    <state x="309" y="34" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603803763882">
+    <state x="309" y="34" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604251467505">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="309" y="34" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.689@0.0.1280.689" timestamp="1603803763882" />
-    <state x="549" y="198" width="601" height="491" key="#xdebugger.evaluate" timestamp="1604243250411">
+    <state x="309" y="34" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.689@0.0.1280.689" timestamp="1604251467505" />
+    <state x="571" y="412" width="601" height="277" key="#xdebugger.evaluate" timestamp="1604335704688">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="549" y="198" width="601" height="491" key="#xdebugger.evaluate/0.0.1280.689@0.0.1280.689" timestamp="1604243250411" />
+    <state x="571" y="412" width="601" height="277" key="#xdebugger.evaluate/0.0.1280.689@0.0.1280.689" timestamp="1604335704688" />
     <state x="371" y="27" key="FileChooserDialogImpl" timestamp="1603692408628">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="371" y="27" key="FileChooserDialogImpl/0.0.1280.689@0.0.1280.689" timestamp="1603692408628" />
-    <state width="1227" height="452" key="GridCell.Tab.0.bottom" timestamp="1604251229435">
+    <state width="1227" height="499" key="GridCell.Tab.0.bottom" timestamp="1604336387934">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="452" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1604251229435" />
-    <state width="1227" height="452" key="GridCell.Tab.0.center" timestamp="1604251229435">
+    <state width="1227" height="499" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1604336387934" />
+    <state width="1227" height="499" key="GridCell.Tab.0.center" timestamp="1604336387934">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="452" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1604251229435" />
-    <state width="1227" height="452" key="GridCell.Tab.0.left" timestamp="1604251229435">
+    <state width="1227" height="499" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1604336387934" />
+    <state width="1227" height="499" key="GridCell.Tab.0.left" timestamp="1604336387934">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="452" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1604251229435" />
-    <state width="1227" height="452" key="GridCell.Tab.0.right" timestamp="1604251229435">
+    <state width="1227" height="499" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1604336387934" />
+    <state width="1227" height="499" key="GridCell.Tab.0.right" timestamp="1604336387934">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="452" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1604251229435" />
-    <state width="1227" height="281" key="GridCell.Tab.1.bottom" timestamp="1604243264431">
+    <state width="1227" height="499" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1604336387934" />
+    <state width="1227" height="309" key="GridCell.Tab.1.bottom" timestamp="1604335703671">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="281" key="GridCell.Tab.1.bottom/0.0.1280.689@0.0.1280.689" timestamp="1604243264431" />
-    <state width="1227" height="281" key="GridCell.Tab.1.center" timestamp="1604243264430">
+    <state width="1227" height="309" key="GridCell.Tab.1.bottom/0.0.1280.689@0.0.1280.689" timestamp="1604335703671" />
+    <state width="1227" height="309" key="GridCell.Tab.1.center" timestamp="1604335703671">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="281" key="GridCell.Tab.1.center/0.0.1280.689@0.0.1280.689" timestamp="1604243264430" />
-    <state width="1227" height="281" key="GridCell.Tab.1.left" timestamp="1604243264430">
+    <state width="1227" height="309" key="GridCell.Tab.1.center/0.0.1280.689@0.0.1280.689" timestamp="1604335703671" />
+    <state width="1227" height="309" key="GridCell.Tab.1.left" timestamp="1604335703671">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="281" key="GridCell.Tab.1.left/0.0.1280.689@0.0.1280.689" timestamp="1604243264430" />
-    <state width="1227" height="281" key="GridCell.Tab.1.right" timestamp="1604243264430">
+    <state width="1227" height="309" key="GridCell.Tab.1.left/0.0.1280.689@0.0.1280.689" timestamp="1604335703671" />
+    <state width="1227" height="309" key="GridCell.Tab.1.right" timestamp="1604335703671">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1227" height="281" key="GridCell.Tab.1.right/0.0.1280.689@0.0.1280.689" timestamp="1604243264430" />
-    <state x="26" y="0" key="SettingsEditor" timestamp="1603803758472">
+    <state width="1227" height="309" key="GridCell.Tab.1.right/0.0.1280.689@0.0.1280.689" timestamp="1604335703671" />
+    <state x="0" y="0" key="SettingsEditor" timestamp="1604297248845">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="26" y="0" key="SettingsEditor/0.0.1280.689@0.0.1280.689" timestamp="1603803758472" />
+    <state x="0" y="0" key="SettingsEditor/0.0.1280.689@0.0.1280.689" timestamp="1604297248845" />
     <state x="263" y="220" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1604207967144">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
@@ -235,10 +244,10 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="309" y="62" key="extract.method.dialog/0.0.1280.689@0.0.1280.689" timestamp="1603810717586" />
-    <state x="0" y="0" width="777" height="689" key="find.popup" timestamp="1604243957804">
+    <state x="0" y="0" width="777" height="689" key="find.popup" timestamp="1604319648568">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="0" y="0" width="777" height="689" key="find.popup/0.0.1280.689@0.0.1280.689" timestamp="1604243957804" />
+    <state x="0" y="0" width="777" height="689" key="find.popup/0.0.1280.689@0.0.1280.689" timestamp="1604319648568" />
     <state x="0" y="0" key="new project wizard" timestamp="1603692409218">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
