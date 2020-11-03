@@ -1,9 +1,10 @@
 package com.os;
 
-import com.constant.ConstantTime;
+import com.config.ConstantTime;
 import com.hardware.CPU;
-import com.status.ClockStatus;
-import com.status.ScheduleStatus;
+import com.PlatForm;
+import com.config.ClockStatus;
+import com.config.ScheduleStatus;
 
 //进程调度
 public class Schedule extends Thread {
@@ -19,7 +20,7 @@ public class Schedule extends Thread {
         while (true) {
             try {
                 if (SystemController.systemController.checkTime2InterruptThread()) {
-                    //如果CPU处于核心态：PV操作
+                    //如果CPU处于核心态
                     this.scheduleStatus = ScheduleStatus.Wait;
                     System.err.println("进入CPU核心态，关闭进程调度中断");
                     try {
@@ -47,9 +48,11 @@ public class Schedule extends Thread {
         //对就绪队列根据进程优先级进行排序
         PCBPool.pcbPool.sortReadyQueueByPriority();
         PCBPool.pcbPool.displayReadyQueue();
+        PlatForm.platForm.readyInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getReadyQueue()));
         //1、检查是否有正在运行的进程
         if (!CPU.cpu.isCPUWork()) {
             System.out.println("==========当前无进程正在执行==========");
+            PlatForm.platForm.runningInfo.setText("无进程执行");
             //进行调度:如果就绪队列为空，则return，否则就绪队列第一个pcb开始运行
             if (PCBPool.pcbPool.isReadyQueueEmpty()) {
                 System.out.println("当前就绪队列为空，结束此次调度");
@@ -57,6 +60,12 @@ public class Schedule extends Thread {
             }
             //就绪队列不为空
             PCB ready2Run = PCBPool.pcbPool.getReadyQueue().get(0);
+            //判断进程是否已经运行结束
+            if (ready2Run.isPCBOver()) {
+                System.out.println("进程" + ready2Run.getProID() + "，已经运行结束");
+                ready2Run.destroyProcess();
+                return;
+            }
             ready2Run.setStartTime(ConstantTime.getSystemTime());
             //从ready queue中删除
             PCBPool.pcbPool.getReadyQueue().remove(ready2Run);
@@ -67,15 +76,15 @@ public class Schedule extends Thread {
         }
         //有正在运行
         PCB runningPCB = CPU.cpu.getRunningPCB();
-        CPU.cpu.updateCpuModeByInstruction();
-        System.out.println("正在运行进程：" + runningPCB.getProID() + ",正在运行指令：");
-        //判断进程是否运行完
-        if (runningPCB.isPCBRunOver()) {
-            //已经运行完，销毁进程
+        PlatForm.platForm.runningInfo.setText(Integer.toString(runningPCB.getProID()));
+        //如果进程已执行完最后一条指令
+        if (runningPCB.isPCBOver()) {
             System.out.println("进程" + runningPCB.getProID() + "，已经运行结束");
             runningPCB.destroyProcess();
             return;
         }
+        CPU.cpu.updateCpuModeByInstruction();
+        PlatForm.platForm.cpuState.setText(CPU.cpu.getCpuState().toString());
         //判断时间片是否耗尽
         if (runningPCB.isPCBRunOverInTimeSlice()) {
             System.out.println("本进程已运行完一个时间片，需要进行进程调度");
@@ -85,6 +94,7 @@ public class Schedule extends Thread {
             CPU.cpu.DeleteRunningPCB();
             return;
         }
+        System.out.println("正在运行进程：" + runningPCB.getProID() + ",正在运行指令：");
         //得到当前正在执行的指令
         runningPCB.getCurrentInstruction().displayInstruction();
         //2、开始运行进程

@@ -1,7 +1,8 @@
 package com.os;
 
-import com.status.InstructionStatus;
-import org.w3c.dom.ls.LSOutput;
+import com.hardware.CPU;
+import com.PlatForm;
+import com.config.InstructionStatus;
 
 /**
  * @program: Process_Sheduling
@@ -33,6 +34,8 @@ public class PCBInstructions {
     }
 
     public void displayInstruction() {
-        System.out.println("本指令编号：" + this.getInstructionID() + "，指令类型：" + this.getInstructionState());
+        String outStr = "进程:" + CPU.cpu.getRunningPCB().getProID() + ",指令:" + this.getInstructionID() + ",类型:" + this.getInstructionState() + "\n";
+        PlatForm.platForm.logInfo.append(outStr);
+        System.out.println(outStr);
     }
 }

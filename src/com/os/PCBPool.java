@@ -1,9 +1,8 @@
 package com.os;
 
 
-import com.constant.ConstantTime;
-import com.hardware.CPU;
-import com.status.PCBStatus;
+import com.config.ConstantTime;
+import com.config.PCBStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -13,19 +12,19 @@ public class PCBPool {
     //实例PCB池对象
     public static PCBPool pcbPool = new PCBPool();
     //所有的PCB队列
-    private ArrayList<PCB> allPcbList = new ArrayList<>();
+    private ArrayList<PCB> allPcbList = new ArrayList<PCB>();
     //PCB池状态MAP
-    private HashMap<PCB, PCBStatus> pcbStatusHashMap = new HashMap<>();
+    private HashMap<PCB, PCBStatus> pcbStatusHashMap = new HashMap<PCB,PCBStatus>();
     //运行PCB队列
-    private ArrayList<PCB> runningQueue = new ArrayList<>();
+    private ArrayList<PCB> runningQueue = new ArrayList<PCB>();
     //就绪队列
-    private ArrayList<PCB> readyQueue = new ArrayList<>();
+    private ArrayList<PCB> readyQueue = new ArrayList<PCB>();
     //键盘输入阻塞队列
-    private ArrayList<PCB> inputBlockQueue = new ArrayList<>();
+    private ArrayList<PCB> inputBlockQueue = new ArrayList<PCB>();
     //屏幕输出阻塞队列
-    private ArrayList<PCB> outputBlockQueue = new ArrayList<>();
+    private ArrayList<PCB> outputBlockQueue = new ArrayList<PCB>();
     //PV阻塞队列
-    private ArrayList<PCB> pvBlockQueue = new ArrayList<>();
+    private ArrayList<PCB> pvBlockQueue = new ArrayList<PCB>();
 
     //统计可用PCB数
     public int getUsablePCBNum() {
@@ -39,7 +38,7 @@ public class PCBPool {
     }
 
     public ArrayList<PCB> getUsAblePCBList() {
-        ArrayList<PCB> usAblePCBList = new ArrayList<>();
+        ArrayList<PCB> usAblePCBList = new ArrayList<PCB>();
         for (Map.Entry<PCB, PCBStatus> entry : pcbStatusHashMap.entrySet()) {
             if (entry.getValue() == PCBStatus.USABLE) {
                 usAblePCBList.add(entry.getKey());
@@ -48,29 +47,15 @@ public class PCBPool {
         return usAblePCBList;
     }
 
-    //    public static void main(String []args){
-//        ArrayList<PCB> tmp = new ArrayList<>();
-//        PCB pcb = new PCB();
-//        pcb.setProID(1);
-//        pcb.setPriority(3);
-//        tmp.add(pcb);
-//        PCB pcb1 = new PCB();
-//        pcb1.setProID(2);
-//        pcb1.setPriority(4);
-//        tmp.add(pcb1);
-//        PCB pcb2 = new PCB();
-//        pcb2.setProID(3);
-//        pcb2.setPriority(2);
-//        tmp.add(pcb2);
-//        System.out.println("排序前："+tmp.get(0).getProID()+","+tmp.get(1).getProID()+","+tmp.get(2).getProID());
-//        tmp.sort(new Comparator<PCB>() {
-//            @Override
-//            public int compare(PCB pcb1, PCB pcb2) {
-//                return pcb1.getPriority() - pcb2.getPriority();
-//            }
-//        });
-//        System.out.println("排序后："+tmp.get(0).getProID()+","+tmp.get(1).getProID()+","+tmp.get(2).getProID());
-//    }
+    public String concatList2String(ArrayList<PCB> pcbs) {
+        StringBuilder res = new StringBuilder();
+        for (PCB pcb : pcbs) {
+            String pcbName = Integer.toString(pcb.getProID());
+            res.append(pcbName).append("  ");
+        }
+        return res.toString();
+    }
+
     public void sortReadyQueueByPriority() {
         this.readyQueue.sort(new Comparator<PCB>() {
             @Override
@@ -128,6 +113,10 @@ public class PCBPool {
 
     public void setRunningQueue(ArrayList<PCB> runningQueue) {
         this.runningQueue = runningQueue;
+    }
+
+    public boolean isAllPCBListEmpty() {
+        return this.allPcbList.isEmpty();
     }
 
     public boolean isReadyQueueEmpty() {

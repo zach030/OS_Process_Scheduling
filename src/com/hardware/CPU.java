@@ -2,6 +2,7 @@ package com.hardware;
 
 import com.os.PCB;
 import com.os.PCBInstructions;
+import com.config.InstructionStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class CPU {
@@ -15,16 +16,14 @@ public class CPU {
     private int PSW;//状态寄存器，当前正在运行的指令
     private PCB runningPCB;//正在运行的进程控制块
 
+    public static InstructionStatus currentInstrucState;
+
     //CPU状态
     public enum CpuState {
         USERMODE, COREMODE
     }
 
     private CpuState cpuState;                    //CPU的状态
-
-
-    public CPU() {
-    }
 
     public void displayCPUState() {
         switch (this.getCpuState()) {
@@ -41,16 +40,21 @@ public class CPU {
         //更新CPU模式
         switch (runningPCB.getInstructionState()) {
             case KEYBOARD_INPUT:
+                //要先使进程进入阻塞态，等待4s后input阻塞队列头出队
                 runningPCB.InputInstrucRun();
+                currentInstrucState = InstructionStatus.KEYBOARD_INPUT;
                 break;
             case SCREEN_DISPLAY:
                 runningPCB.OutPutInstrucRun();
+                currentInstrucState = InstructionStatus.SCREEN_DISPLAY;
                 break;
             case PV_OPERATION:
                 runningPCB.PVCommunicateInstrucRun();
+                currentInstrucState = InstructionStatus.PV_OPERATION;
                 break;
             case USERMODE_CALC:
                 runningPCB.NormalInstrucRun();
+                currentInstrucState = InstructionStatus.USERMODE_CALC;
         }
     }
 

@@ -1,15 +1,12 @@
 package com.os;
 
-import com.constant.ConstantTime;
-import com.handle.KeyBoardInput;
-import com.handle.PVCommunicate;
-import com.handle.ScreenOutput;
+import com.config.ConstantTime;
+import com.config.InstructionStatus;
+import com.config.ProcessStatus;
 import com.hardware.CPU;
-import com.status.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentNavigableMap;
 
 public class PCB {
     private int ProID;//值分别为 1,2,3,4,5,6，。。
@@ -26,7 +23,7 @@ public class PCB {
     public PCBInPVOperationQueue pcbInPVOperationQueue = new PCBInPVOperationQueue();
     public PCBInScreenOutputInputQueue pcbInScreenOutputInputQueue = new PCBInScreenOutputInputQueue();
     private ProcessStatus psw;//进程状态：运行、阻塞、就绪
-    public ArrayList<PCBInstructions> pcbInstructions = new ArrayList<>();//包含的指令list
+    public ArrayList<PCBInstructions> pcbInstructions = new ArrayList<PCBInstructions>();//包含的指令list
 
     public PCBInstructions getCurrentInstruction() {
         return this.pcbInstructions.get(this.IR);
@@ -255,7 +252,6 @@ public class PCB {
     public void destroyProcess() {
         PCBPool.pcbPool.deletePCBFromPool(this);
         PCBPool.pcbPool.getReadyQueue().remove(this);
-        PCBPool.pcbPool.getReadyQueue().remove(this);
         this.setEndTimes(ConstantTime.getSystemTime());
         CPU.cpu.DeleteRunningPCB();
         System.out.println("已从PCB池中删除此进程");
@@ -269,12 +265,15 @@ public class PCB {
             case PV_OPERATION:
                 //加入阻塞队列
                 PCBPool.pcbPool.AddProcess2PVBlockQueue(this);
+                //PlatForm.platForm.pvBlockInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getPvBlockQueue()));
                 break;
             case SCREEN_DISPLAY:
                 PCBPool.pcbPool.AddProcess2OutputBlockQueue(this);
+                //PlatForm.platForm.outputBlockInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getOutputBlockQueue()));
                 break;
             case KEYBOARD_INPUT:
                 PCBPool.pcbPool.AddProcess2InputBlockQueue(this);
+                //PlatForm.platForm.inputBlockInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getInputBlockQueue()));
                 break;
             default:
                 break;
@@ -290,6 +289,10 @@ public class PCB {
         this.setPsw(ProcessStatus.Ready);
     }
 
+    public boolean isPCBOver() {
+        return this.getIR() == this.getInstrucNum();
+    }
+
     public void NormalInstrucRun() {
         System.out.println("进程正常调度");
         //时间片减一
@@ -300,19 +303,16 @@ public class PCB {
 
     public void InputInstrucRun() {
         //进入阻塞队列
-        KeyBoardInput keyBoardInput = new KeyBoardInput(ConstantTime.KEYBOARD_INPUT_INTERVAL);
-        keyBoardInput.start();
         this.blockProcess(this.getInstructionState());
         //终止当前运行的进程
         CPU.cpu.DeleteRunningPCB();
         //遇到中断，先保护现场
         CPU.cpu.Protect(this);
+
     }
 
     public void OutPutInstrucRun() {
         //进入阻塞队列
-        ScreenOutput screenOutput = new ScreenOutput(ConstantTime.SCREEN_OUTPUT_INTERVAL);
-        screenOutput.start();
         this.blockProcess(this.getInstructionState());
         CPU.cpu.DeleteRunningPCB();
         //遇到中断，先保护现场
@@ -322,8 +322,6 @@ public class PCB {
     public void PVCommunicateInstrucRun() {
         //PV通信阻塞指令；关时间中断
         //进入阻塞队列
-        PVCommunicate pvCommunicate = new PVCommunicate(ConstantTime.PV_COMMUNICATE_INTERVAL);
-        pvCommunicate.start();
         this.blockProcess(this.getInstructionState());
         CPU.cpu.DeleteRunningPCB();
         //遇到中断，先保护现场

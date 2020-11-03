@@ -1,10 +1,11 @@
 package com.hardware;
 
-import com.constant.ConstantTime;
+import com.config.ConstantTime;
 import com.os.FileOperator;
 import com.os.PCBPool;
 import com.os.SystemController;
-import com.status.ClockStatus;
+import com.config.ClockStatus;
+import com.PlatForm;
 
 /*设置 1 秒执行 1 条指令，也就是假设计算机 1 秒(s)发生一次时钟硬件中断*/
 public class Clock extends Thread {
@@ -42,6 +43,10 @@ public class Clock extends Thread {
     public void run() {
         System.out.println("线程：---------CPU仿真时钟线程开始运行");
         while (true) {
+            PlatForm.platForm.jobInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getAllPcbList()));
+            PlatForm.platForm.pvBlockInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getPvBlockQueue()));
+            PlatForm.platForm.outputBlockInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getOutputBlockQueue()));
+            PlatForm.platForm.inputBlockInfo.setText(PCBPool.pcbPool.concatList2String(PCBPool.pcbPool.getInputBlockQueue()));
             try {
                 if (SystemController.systemController.checkTime2InterruptThread()) {
                     //如果CPU处于核心态：PV操作
@@ -50,9 +55,6 @@ public class Clock extends Thread {
                         sleep(ConstantTime.PV_COMMUNICATE_INTERVAL);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    } finally {
-                        //系统时间自增
-                        ConstantTime.SYSTEM_TIME += ConstantTime.PV_COMMUNICATE_INTERVAL;
                     }
                 } else {
                     //CPU处于用户态，时钟正常中断
@@ -77,7 +79,8 @@ public class Clock extends Thread {
                 this.clockInterruptTimes++;
                 //检查pcb池,将到时间的进程创建加入就绪队列
                 PCBPool.pcbPool.checkPCBInTime2GetReady();
-                System.err.println("######## 当前系统时间：" + ConstantTime.getSystemTime() / 1000 + "  #########");
+                PlatForm.platForm.systemTime.setText(Integer.toString(ConstantTime.getSystemTime() / 1000));
+                System.out.println("############################# 当前系统时间：" + ConstantTime.getSystemTime() / 1000 + "  #######################");
             }
         }
     }

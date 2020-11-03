@@ -1,8 +1,6 @@
 package com.os;
 
-import com.hardware.CPU;
-import com.hardware.Clock;
-import com.status.InstructionStatus;
+import com.config.InstructionStatus;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,7 +15,8 @@ import java.util.Random;
  **/
 public class FileOperator {
 
-    public static int jobSize = 5;
+    static boolean joinNewJob = false;
+    public static int currentJobSize = 5;
     public static FileOperator fileOperator = new FileOperator();
     public static final String outputAbstractFileName = "D:\\UniCourse\\OS\\周全-19318123-必修实验-申请成绩\\output\\";
     //从文件中读取的临时pcb
@@ -25,8 +24,8 @@ public class FileOperator {
     public static final String jobFileName = inputAbstractFileName + "19318123-jobs-input.txt";
     public static String instrucName = "1.txt";
     public static String instructionFileName;
-    ArrayList<PCB> TmpPCBList = new ArrayList<>();
-    HashMap<PCB, String> PCBInstructionFile = new HashMap<>();
+    ArrayList<PCB> TmpPCBList = new ArrayList<PCB>();
+    HashMap<PCB, String> PCBInstructionFile = new HashMap<PCB,String>();
 
     public void ReadAllPCB(String filename) {
         try {
@@ -57,19 +56,24 @@ public class FileOperator {
     }
 
     public void ReadOneNewPCB() {
+        if (joinNewJob) {
+            int size = PCBPool.pcbPool.getAllPcbList().size();
+            PCBPool.pcbPool.AddProcess2ReadyQueue(PCBPool.pcbPool.getAllPcbList().get(size - 1));
+        }
+        joinNewJob = false;
+    }
 
+    public void createNewJob() {
+        PCB pcb = createNewPCB();
+        createNewInstructions(pcb);
+        PCBPool.pcbPool.addPCB2Pool(pcb);
     }
 
     public PCB createNewPCB() {
-        PCB pcb = createNewJob();
-        createNewInstructions(pcb);
-        return pcb;
-    }
-
-    public PCB createNewJob() {
         Random rand = new Random();
-        jobSize++;
-        int jobID = jobSize;
+        joinNewJob = true;
+        currentJobSize++;
+        int jobID = currentJobSize;
         int jobPriority = rand.nextInt(6);
         int jobInTime = rand.nextInt(61);
         int jobInstrucNum = rand.nextInt(41) % (41 - 20 + 1) + 20;//20-40条指令
@@ -83,7 +87,7 @@ public class FileOperator {
 
     public void createNewInstructions(PCB pcb) {
         Random rand = new Random();
-        ArrayList<PCBInstructions> pcbInstructions = new ArrayList<>();
+        ArrayList<PCBInstructions> pcbInstructions = new ArrayList<PCBInstructions>();
         for (int i = 1; i <= pcb.getInstrucNum(); i++) {
             PCBInstructions pcbInstruction = new PCBInstructions();
             int state = rand.nextInt(4);
@@ -91,24 +95,7 @@ public class FileOperator {
             pcbInstruction.setInstructionState(InstructionStatus.values()[state]);
             pcbInstructions.add(pcbInstruction);
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        write("D:\\1.txt"); //运行主方法
-    }
-
-    public static void write(String path) throws IOException {
-        //将写入转化为流的形式
-        BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-        //一次写一行
-        String ss = "测试数据";
-        bw.write(ss);
-        bw.newLine();  //换行用
-
-        //关闭流
-        bw.close();
-        System.out.println("写入成功");
+        pcb.setPcbInstructions(pcbInstructions);
     }
 
     public void ReadPCBInstructions(String filename, PCB pcb) {
